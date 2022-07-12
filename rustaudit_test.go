@@ -4,17 +4,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"log"
 	"os"
-	"os/exec"
 	"testing"
 )
 
 func TestLinuxRustDependencies(t *testing.T) {
-	//Build a Rust binary with audit information
-	cmd := exec.Command("docker", "build", "-f", "test/Dockerfile", "-o", ".", ".")
-	if err := cmd.Run(); err != nil {
-		log.Fatal(err)
-	}
-
 	r, err := os.Open("hello-auditable")
 	if err != nil {
 		log.Fatal(err)

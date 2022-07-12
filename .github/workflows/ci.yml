@@ -9,4 +9,6 @@ jobs:
           go-version: 1.18
       - uses: actions/checkout@v3
       - uses: golangci/golangci-lint-action@v3
+      - name: generate fixture
+        run: docker build -f test/Dockerfile -o . .
       - run: go test
