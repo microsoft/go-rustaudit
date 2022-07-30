@@ -130,7 +130,15 @@ type elfExe struct {
 }
 
 func (x *elfExe) ReadRustDepSection() ([]byte, error) {
-	depInfo := x.f.Section(".rust-deps-v0")
+	// Try .dep-v0 first, falling back to .rust-deps-v0 as used in
+	// in rust-audit 0.1.0
+	depInfo := x.f.Section(".dep-v0")
+
+	if depInfo != nil {
+		return depInfo.Data()
+	}
+
+	depInfo = x.f.Section(".rust-deps-v0")
 
 	if depInfo == nil {
 		return nil, ErrNoRustDepInfo
@@ -144,7 +152,15 @@ type peExe struct {
 }
 
 func (x *peExe) ReadRustDepSection() ([]byte, error) {
-	depInfo := x.f.Section("rdep-v0")
+	// Try .dep-v0 first, falling back to rdep-v0 as used in
+	// in rust-audit 0.1.0
+	depInfo := x.f.Section(".dep-v0")
+
+	if depInfo != nil {
+		return depInfo.Data()
+	}
+
+	depInfo = x.f.Section("rdep-v0")
 
 	if depInfo == nil {
 		return nil, ErrNoRustDepInfo
@@ -158,7 +174,15 @@ type machoExe struct {
 }
 
 func (x *machoExe) ReadRustDepSection() ([]byte, error) {
-	depInfo := x.f.Section("rust-deps-v0")
+	// Try .dep-v0 first, falling back to rust-deps-v0 as used in
+	// in rust-audit 0.1.0
+	depInfo := x.f.Section(".dep-v0")
+
+	if depInfo != nil {
+		return depInfo.Data()
+	}
+
+	depInfo = x.f.Section("rust-deps-v0")
 
 	if depInfo == nil {
 		return nil, ErrNoRustDepInfo
