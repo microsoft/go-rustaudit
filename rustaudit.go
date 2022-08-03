@@ -54,9 +54,10 @@ var (
 	ErrNoRustDepInfo = errors.New("rust dependency information not found")
 
 	// Headers for different binary types
-	elfHeader   = []byte("\x7FELF")
-	peHeader    = []byte("MZ")
-	machoHeader = []byte("\xFE\xED\xFA")
+	elfHeader            = []byte("\x7FELF")
+	peHeader             = []byte("MZ")
+	machoHeader          = []byte("\xFE\xED\xFA")
+	machoUniversalHeader = []byte("\xCA\xFE\xBA\xBE")
 )
 
 func GetDependencyInfo(r io.ReaderAt) (VersionInfo, error) {
@@ -81,7 +82,7 @@ func GetDependencyInfo(r io.ReaderAt) (VersionInfo, error) {
 			return VersionInfo{}, ErrUnknownFileFormat
 		}
 		x = &peExe{f}
-	case bytes.HasPrefix(header, machoHeader):
+	case bytes.HasPrefix(header, machoHeader) || bytes.HasPrefix(header, machoUniversalHeader):
 		f, err := macho.NewFile(r)
 		if err != nil {
 			return VersionInfo{}, ErrUnknownFileFormat
