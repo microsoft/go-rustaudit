@@ -1,6 +1,6 @@
 # go-rustaudit
 
-Go library for extracting Rust dependency information from Rust binaries built with [Rust-Audit](https://github.com/Shnatsel/rust-audit)
+Go library for extracting Rust dependency information from Rust binaries built with [cargo-auditable](https://github.com/rust-secure-code/cargo-auditable) (previously named rust-audit).
 
 ## Contributing
 
