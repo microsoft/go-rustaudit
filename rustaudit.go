@@ -83,7 +83,7 @@ func GetDependencyInfo(r io.ReaderAt) (VersionInfo, error) {
 			return VersionInfo{}, ErrUnknownFileFormat
 		}
 		x = &peExe{f}
-	case bytes.HasPrefix(header, machoHeader) || bytes.HasPrefix(header, machoHeaderLittleEndian) || bytes.HasPrefix(header, machoUniversalHeader):
+	case bytes.HasPrefix(header, machoHeader) || bytes.HasPrefix(header[1:], machoHeaderLittleEndian) || bytes.HasPrefix(header, machoUniversalHeader):
 		f, err := macho.NewFile(r)
 		if err != nil {
 			return VersionInfo{}, ErrUnknownFileFormat
