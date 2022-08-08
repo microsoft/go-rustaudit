@@ -20,4 +20,5 @@ func TestLinuxRustDependencies(t *testing.T) {
 	}
 	assert.Equal(t, 2, len(versionInfo.Packages))
 	assert.Equal(t, Package{Name: "crate_with_features", Version: "0.1.0", Source: "local", Kind: "runtime", Dependencies: []uint{1}, Root: true}, versionInfo.Packages[0])
+	assert.Equal(t, false, versionInfo.Packages[1].Root)
 }
