@@ -31,7 +31,8 @@ type Package struct {
 	Source       string         `json:"source"`
 	Kind         DependencyKind `json:"kind"`
 	Dependencies []uint         `json:"dependencies"`
-	Features     []string       `json:"features"`
+	Features     []string       `json:"features"` // Removed in cargo-auditable 0.5.0
+	Root         bool           `json:"root"`
 }
 
 // Default the Kind to Runtime during unmarshalling
