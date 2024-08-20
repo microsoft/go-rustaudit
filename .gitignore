@@ -15,3 +15,4 @@
 # vendor/
 
 crate_with_features_bin
+wasm_crate.wasm
